@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <link rel="stylesheet" href="/public/style.css">
+    <meta charset="UTF-8">
+    <title>元素データの編集</title>
+</head>
+<body>
+    <h1>元素データの編集</h1>
+    
+    <form action="/element/update/<%= item.number %>" method="POST">
+        <p>
+            <strong>原子番号：</strong> <%= item.number %>
+        </p>
+        <p>
+            <label>元素記号：<br>
+                <input type="text" name="symbol" value="<%= item.symbol %>" required>
+            </label>
+        </p>
+        <p>
+            <label>元素名：<br>
+                <input type="text" name="name" value="<%= item.name %>" required>
+            </label>
+        </p>
+        <p>
+            <label>質量数：<br>
+                <input type="number" step="0.1" name="mass" value="<%= item.mass %>">
+            </label>
+        </p>
+        <p>
+            <label>説明・性質：<br>
+                <textarea name="explain" rows="4" cols="40"><%= item.explain %></textarea>
+            </label>
+        </p>
+        
+        <p>
+            <button type="submit">更新する</button>
+            <a href="/element/<%= item.number %>" style="margin-left: 10px;">キャンセル</a>
+        </p>
+    </form>
+</body>
+</html>

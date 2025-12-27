@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <link rel="stylesheet" href="/public/style.css">
+    <meta charset="UTF-8">
+    <title>武器詳細: <%= item.name %></title>
+</head>
+<body>
+    <h1>武器詳細データ</h1>
+
+    <div style="border: 2px solid #333; padding: 15px; width: 300px; margin-bottom: 20px;">
+        <h2 style="margin: 0;"><%= item.name %></h2>
+        <p style="color: gray;">ランク: <%= item.rank %> / 種類: <%= item.type %></p>
+    </div>
+
+    <table border="1" cellpadding="8" cellspacing="0">
+        <tr>
+            <th width="100">威力</th>
+            <td width="100"><%= item.might %></td>
+            <th width="100">命中</th>
+            <td width="100"><%= item.hit %></td>
+        </tr>
+        <tr>
+            <th>必殺</th>
+            <td><%= item.critical %></td>
+            <th>射程</th>
+            <td><%= item.range %></td>
+        </tr>
+        <tr>
+            <th>重さ</th>
+            <td><%= item.weight %></td>
+            <th>ランク</th>
+            <td><%= item.rank %></td>
+        </tr>
+        <tr>
+            <th>説明</th>
+            <td colspan="3"><%= item.explain %></td>
+        </tr>
+    </table>
+
+    <br>
+
+    <a href="/weapon/edit/<%= item.id %>">
+        <button>この情報を編集する</button>
+    </a>
+    &nbsp;&nbsp;
+    <a href="/weapon">一覧に戻る</a>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <link rel="stylesheet" href="/public/style.css">
+    <meta charset="UTF-8">
+    <title>新規映画追加</title>
+<body>
+    <h1>新規映画データの追加</h1>
+    
+    <form action="/doraemon/create" method="POST">
+        <p>
+            <label>タイトル：<br>
+                <input type="text" name="title" required>
+            </label>
+        </p>
+        <p>
+            <label>公開年（西暦）：<br>
+                <input type="number" name="year" required>
+            </label>
+        </p>
+        <p>
+            <label>興行収入（例：15億円）：<br>
+                <input type="text" name="revenue">
+            </label>
+        </p>
+        <p>
+            <label>監督：<br>
+                <input type="text" name="director">
+            </label>
+        </p>
+        <p>
+            <label>概要・あらすじ：<br>
+                <textarea name="explain" rows="4" cols="40"></textarea>
+            </label>
+        </p>
+        
+        <p>
+            <button type="submit">登録する</button>
+            <a href="/doraemon" style="margin-left: 10px;">キャンセル</a>
+        </p>
+    </form>
+</body>
+</html>

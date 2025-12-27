@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <link rel="stylesheet" href="/public/style.css">
+    <meta charset="UTF-8">
+    <title>武器データの編集</title>
+</head>
+<body>
+    <h1>武器データの編集</h1>
+    
+    <form action="/weapon/update/<%= item.id %>" method="POST">
+        <p><strong>ID:</strong> <%= item.id %></p>
+        <p><label>名前：<input type="text" name="name" value="<%= item.name %>" required></label></p>
+        <p><label>種類：<input type="text" name="type" value="<%= item.type %>" required></label></p>
+        
+        <p>
+            <label>威力：<input type="number" name="might" value="<%= item.might %>" required style="width:60px;"></label>
+            &nbsp;
+            <label>命中：<input type="number" name="hit" value="<%= item.hit %>" required style="width:60px;"></label>
+        </p>
+        <p>
+            <label>必殺：<input type="number" name="critical" value="<%= item.critical %>" required style="width:60px;"></label>
+            &nbsp;
+            <label>射程：<input type="text" name="range" value="<%= item.range %>" required style="width:60px;"></label>
+        </p>
+        <p>
+            <label>重さ：<input type="number" name="weight" value="<%= item.weight %>" required style="width:60px;"></label>
+            &nbsp;
+            <label>ランク：<input type="text" name="rank" value="<%= item.rank %>" required style="width:60px;"></label>
+        </p>
+
+        <p>
+            <label>説明・備考：<br>
+                <textarea name="explain" rows="3" cols="40"><%= item.explain %></textarea>
+            </label>
+        </p>
+        
+        <p>
+            <button type="submit">更新する</button>
+            <a href="/weapon/<%= item.id %>" style="margin-left: 10px;">キャンセル</a>
+        </p>
+    </form>
+</body>
+</html>

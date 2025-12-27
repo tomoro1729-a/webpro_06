@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <link rel="stylesheet" href="/public/style.css">
+    <meta charset="UTF-8">
+    <title><%= item.title %> の詳細</title>
+
+</head>
+<body>
+    <h1>映画詳細情報</h1>
+
+    <table border="1" cellpadding="8" cellspacing="0">
+        <tr>
+            <th width="150">タイトル</th>
+            <td><%= item.title %></td>
+        </tr>
+        <tr>
+            <th>公開年</th>
+            <td><%= item.year %>年</td>
+        </tr>
+        <tr>
+            <th>興行収入</th>
+            <td><%= item.revenue %></td>
+        </tr>
+        <tr>
+            <th>監督</th>
+            <td><%= item.director %></td>
+        </tr>
+        <tr>
+            <th>概要</th>
+            <td><%= item.explain %></td>
+        </tr>
+    </table>
+
+    <br>
+
+    <a href="/doraemon/edit/<%= item.id %>">
+        <button>この情報を編集する</button>
+    </a>
+    
+    &nbsp;&nbsp;
+
+    <a href="/doraemon">一覧に戻る</a>
+
+</body>
+</html>

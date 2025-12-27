@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <link rel="stylesheet" href="/public/style.css">
+    <meta charset="UTF-8">
+    <title>新規武器追加</title>
+</head>
+<body>
+    <h1>新規武器データの追加</h1>
+    
+    <form action="/weapon/create" method="POST">
+        <p><label>名前：<input type="text" name="name" required placeholder="例: 鉄の剣"></label></p>
+        <p><label>種類：<input type="text" name="type" required value="剣"></label></p>
+        
+        <p>
+            <label>威力：<input type="number" name="might" required placeholder="例: 5" style="width:60px;"></label>
+            &nbsp;
+            <label>命中：<input type="number" name="hit" required placeholder="例: 90" style="width:60px;"></label>
+        </p>
+        <p>
+            <label>必殺：<input type="number" name="critical" required placeholder="例: 0" style="width:60px;"></label>
+            &nbsp;
+            <label>射程：<input type="text" name="range" required placeholder="例: 1" style="width:60px;"></label>
+        </p>
+        <p>
+            <label>重さ：<input type="number" name="weight" required placeholder="例: 5" style="width:60px;"></label>
+            &nbsp;
+            <label>ランク：<input type="text" name="rank" required placeholder="例: E" style="width:60px;"></label>
+        </p>
+
+        <p>
+            <label>説明・備考：<br>
+                <textarea name="explain" rows="3" cols="40"></textarea>
+            </label>
+        </p>
+        
+        <p>
+            <button type="submit">登録する</button>
+            <a href="/weapon" style="margin-left: 10px;">キャンセル</a>
+        </p>
+    </form>
+</body>
+</html>

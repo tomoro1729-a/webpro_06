@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <link rel="stylesheet" href="/public/style.css">
+    <meta charset="UTF-8">
+    <title>周期表元素一覧</title>
+</head>
+<body>
+    <h1>周期表元素一覧</h1>
+    
+    <p>
+        <a href="/element/create">
+            <button>+ 新規元素を追加する</button>
+        </a>
+    </p>
+
+    <table border="1" cellpadding="5" cellspacing="0">
+        <thead>
+            <tr>
+                <th>No.</th>
+                <th>記号</th>
+                <th>元素名</th>
+                <th>質量数</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% for (let item of data) { %>
+            <tr>
+                <td><%= item.number %></td>
+                <td style="font-weight:bold; font-size:1.2em;"><%= item.symbol %></td>
+                <td>
+                    <a href="/element/<%= item.number %>"><%= item.name %></a>
+                </td>
+                <td><%= item.mass %></td>
+                <td>
+                    <form action="/element/delete/<%= item.number %>" method="POST" style="display:inline;" onsubmit="return confirm('本当に削除しますか？');">
+                        <button type="submit">削除</button>
+                    </form>
+                </td>
+            </tr>
+            <% } %>
+        </tbody>
+    </table>
+</body>
+</html>

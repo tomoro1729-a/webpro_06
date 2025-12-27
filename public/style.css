@@ -1,0 +1,98 @@
+@charset "utf-8";
+
+/* 全体の設定 */
+body {
+    font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 20px;
+}
+
+h1 {
+    border-left: 5px solid #007bff; /* 左に青い線 */
+    padding-left: 10px;
+    background-color: #fff;
+    padding: 10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+a {
+    color: #007bff;
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: underline;
+}
+
+/* ボタンのデザイン */
+button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 14px;
+}
+button:hover {
+    background-color: #0056b3;
+}
+/* 削除ボタンは赤くする */
+form[action*="delete"] button {
+    background-color: #dc3545;
+}
+form[action*="delete"] button:hover {
+    background-color: #a71d2a;
+}
+
+/* テーブルのデザイン */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+    margin-top: 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+th {
+    background-color: #343a40;
+    color: #fff;
+    padding: 10px;
+    text-align: left;
+}
+td {
+    border-bottom: 1px solid #ddd;
+    padding: 10px;
+}
+tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* フォームのデザイン */
+form {
+    background-color: #fff;
+    padding: 20px;
+    border: 1px solid #ddd;
+    max-width: 600px;
+}
+input[type="text"],
+input[type="number"],
+textarea {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    box-sizing: border-box; /* 枠線を幅に含める */
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+table form {
+    padding: 0;
+    margin: 0;
+    border: none;
+    background-color: transparent;
+    box-shadow: none;
+    width: auto;
+}

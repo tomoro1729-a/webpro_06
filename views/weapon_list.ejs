@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <link rel="stylesheet" href="/public/style.css">
+    <meta charset="UTF-8">
+    <title>武器一覧 (FE風花雪月)</title>
+</head>
+<body>
+    <h1>武器一覧 (FE風花雪月)</h1>
+    
+    <p>
+        <a href="/weapon/create">
+            <button>+ 新規武器を追加する</button>
+        </a>
+    </p>
+
+    <table border="1" cellpadding="5" cellspacing="0">
+        <thead>
+            <tr style="background-color: #eee;">
+                <th>ID</th>
+                <th>名前</th>
+                <th>種類</th>
+                <th>威力</th>
+                <th>命中</th>
+                <th>必殺</th>
+                <th>射程</th>
+                <th>重さ</th>
+                <th>ランク</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% for (let item of data) { %>
+            <tr>
+                <td><%= item.id %></td>
+                <td style="font-weight:bold;"><a href="/weapon/<%= item.id %>"><%= item.name %></a></td>
+                <td><%= item.type %></td>
+                <td><%= item.might %></td>
+                <td><%= item.hit %></td>
+                <td><%= item.critical %></td>
+                <td><%= item.range %></td>
+                <td><%= item.weight %></td>
+                <td style="text-align:center;"><%= item.rank %></td>
+                <td>
+                    <form action="/weapon/delete/<%= item.id %>" method="POST" style="display:inline;" onsubmit="return confirm('本当に削除しますか？');">
+                        <button type="submit">削除</button>
+                    </form>
+                </td>
+            </tr>
+            <% } %>
+        </tbody>
+    </table>
+</body>
+</html>

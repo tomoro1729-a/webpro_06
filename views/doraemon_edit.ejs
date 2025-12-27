@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <link rel="stylesheet" href="/public/style.css">
+    <meta charset="UTF-8">
+    <title>映画データの編集</title>
+</head>
+<body>
+    <h1>映画データの編集</h1>
+    
+    <form action="/doraemon/update/<%= item.id %>" method="POST">
+        <p>
+            <label>タイトル：<br>
+                <input type="text" name="title" value="<%= item.title %>" required>
+            </label>
+        </p>
+        <p>
+            <label>公開年（西暦）：<br>
+                <input type="number" name="year" value="<%= item.year %>" required>
+            </label>
+        </p>
+        <p>
+            <label>興行収入：<br>
+                <input type="text" name="revenue" value="<%= item.revenue %>">
+            </label>
+        </p>
+        <p>
+            <label>監督：<br>
+                <input type="text" name="director" value="<%= item.director %>">
+            </label>
+        </p>
+        <p>
+            <label>概要・あらすじ：<br>
+                <textarea name="explain" rows="4" cols="40"><%= item.explain %></textarea>
+            </label>
+        </p>
+        
+        <p>
+            <button type="submit">更新する</button>
+            <a href="/doraemon/<%= item.id %>" style="margin-left: 10px;">キャンセル</a>
+        </p>
+    </form>
+</body>
+</html>

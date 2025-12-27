@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <link rel="stylesheet" href="/public/style.css">
+    <meta charset="UTF-8">
+    <title>ドラえもん映画一覧</title>
+</head>
+<body>
+    <h1>ドラえもん映画一覧</h1>
+    
+    <p>
+        <a href="/doraemon/create">
+            <button>+ 新規映画を追加する</button>
+        </a>
+    </p>
+
+    <table border="1" cellpadding="5" cellspacing="0">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>公開年</th>
+                <th>タイトル</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% for (let item of data) { %>
+            <tr>
+                <td><%= item.id %></td>
+                <td><%= item.year %>年</td>
+                <td>
+                    <a href="/doraemon/<%= item.id %>"><%= item.title %></a>
+                </td>
+                <td>
+                    <form action="/doraemon/delete/<%= item.id %>" method="POST" style="display:inline;" onsubmit="return confirm('本当に削除しますか？');">
+                        <button type="submit">削除</button>
+                    </form>
+                </td>
+            </tr>
+            <% } %>
+        </tbody>
+    </table>
+</body>
+</html>
