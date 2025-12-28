@@ -28,19 +28,18 @@
 \end{center}
 
 
-
 \section{開発者向け仕様書}
 本システムは，Node.jsおよびExpressフレームワークを用いて構築された，3つの異なるテーマ（映画・化学元素・ゲーム武器）を扱うWebデータベースアプリケーションである．各システムは独立したリソースとして管理されつつも，統一されたRESTfulな設計指針に基づいて実装されている．
 
 \subsection{技術スタックと構成}
 本開発では、開発効率と保守性を高めるため、以下の技術・ライブラリを採用した。
 \begin{itemize}
-    \item \textbf{サーバーサイド: Node.js (Express)}
-    \par \textit{採用理由}: Node.jsにおける標準的なWebサーバー構築ライブラリであり、ルーティング処理やHTTPリクエストの処理を簡潔に記述できるため。
-    \item \textbf{テンプレートエンジン: EJS (HTML動的生成)}
-    \par \textit{採用理由}: HTML内にサーバー側のデータを埋め込む処理（動的生成）を効率的に行うため。
-    \item \textbf{フロントエンド}: 標準HTML5, CSS3（静的ファイルとして外部定義）
-    \item \textbf{データ管理}: サーバー内メモリによるオブジェクト配列管理
+    \item \textbf{サーバーサイド: Node.js (Express)}
+    \par \textit{採用理由}: Node.jsにおける標準的なWebサーバー構築ライブラリであり、ルーティング処理やHTTPリクエストの処理を簡潔に記述できるため。
+    \item \textbf{テンプレートエンジン: EJS (HTML動的生成)}
+    \par \textit{採用理由}: HTML内にサーバー側のデータを埋め込む処理（動的生成）を効率的に行うため。
+    \item \textbf{フロントエンド}: 標準HTML5, CSS3（静的ファイルとして外部定義）
+    \item \textbf{データ管理}: サーバー内メモリによるオブジェクト配列管理
 \end{itemize}
 
 \section{共通設計仕様}
@@ -48,23 +47,37 @@
 \subsection{ページ構造の決定}
 各サブシステムは，ユーザーの操作性を考慮し，以下の4種類のページ構造を共通で持つ．
 \begin{enumerate}
-    \item \textbf{一覧ページ (Index)}: 登録データの全件をテーブル形式で表示する．
-    \item \textbf{詳細ページ (Show)}: 特定リソースの全プロパティを閲覧する．
-    \item \textbf{新規登録ページ (New)}: 新規データ入力を受け付けるフォーム．
-    \item \textbf{編集ページ (Edit)}: 既存データの修正を受け付けるフォーム．
+    \item \textbf{一覧ページ (Index)}: 登録データの全件をテーブル形式で表示する．
+    \item \textbf{詳細ページ (Show)}: 特定リソースの全プロパティを閲覧する．
+    \item \textbf{新規登録ページ (New)}: 新規データ入力を受け付けるフォーム．
+    \item \textbf{編集ページ (Edit)}: 既存データの修正を受け付けるフォーム．
 \end{enumerate}
 
 \subsection{ページ遷移と処理の流れ}
 本システムはステートレスなHTTP通信を行うが，操作後のユーザー体験（UX）を最適化するため，以下のリダイレクト戦略を採用している．
 
-
-
 \begin{itemize}
-    \item \textbf{新規作成/削除後}: データの増減を即座に確認させるため，「一覧ページ」へリダイレクトする．
-    \item \textbf{編集完了後}: 修正された内容を再確認させるため，「詳細ページ」へリダイレクトする．
+    \item \textbf{新規作成/削除後}: データの増減を即座に確認させるため，「一覧ページ」へリダイレクトする．
+    \item \textbf{編集完了後}: 修正された内容を再確認させるため，「詳細ページ」へリダイレクトする．
 \end{itemize}
 
+% ▼▼▼ フローチャート画像の挿入 ▼▼▼
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=12cm]{flowchart.png}
+    \caption{システムの共通処理フローチャート}
+\end{figure}
+% ▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲
+\newpage
+
 \section{各サブシステムの詳細設計}
+本章では，各サブシステムが管理するデータの詳細構造を定義する．
+なお，各データ構造表における\textbf{「必須」}項目の定義は以下の通りである．
+
+\begin{itemize}
+    \item \textbf{〇 (必須)}: 新規登録および編集時に，入力フォームにて値の入力が強制される項目（HTMLの \texttt{required} 属性が付与される）．
+    \item \textbf{- (任意)}: 空欄での登録が許容される項目．
+\end{itemize}
 
 \subsection{システム1：ドラえもん映画一覧システム}
 歴代作品の興行データ等を管理する．
@@ -80,6 +93,7 @@ id & Integer & 〇 & システム一意識別子 \\ \hline
 title & String & 〇 & 映画の題名 \\ \hline
 year & Integer & 〇 & 公開された西暦 \\ \hline
 revenue & String & - & 興行収入記録 \\ \hline
+director & String & - & 映画監督の氏名 \\ \hline
 explain & String & - & あらすじ・概要説明 \\ \hline
 \end{tabular}
 \end{adjustbox}
@@ -98,6 +112,7 @@ explain & String & - & あらすじ・概要説明 \\ \hline
 number & Integer & 〇 & 原子番号（ID兼用） \\ \hline
 symbol & String & 〇 & 元素記号（H, He等） \\ \hline
 name & String & 〇 & 日本語名 \\ \hline
+mass & Float & 〇 & 原子量 \\ \hline
 explain & String & - & 性質や発見の経緯等の記述 \\ \hline
 \end{tabular}
 \end{adjustbox}
@@ -118,35 +133,23 @@ explain & String & - & 性質や発見の経緯等の記述 \\ \hline
 id & Integer & 〇 & 武器一意識別子 \\ \hline
 name & String & 〇 & 武器の名称 \\ \hline
 type & String & 〇 & 分類（剣，槍，斧，弓等） \\ \hline
-might / hit & Integer & - & 威力および命中率 \\ \hline
+might & Integer & - & 攻撃の威力 \\ \hline
+hit & Integer & - & 命中率（\%） \\ \hline
+critical & Integer & - & 必殺率（\%） \\ \hline
+range & String & 〇 & 射程距離（1, 1-2等） \\ \hline
+weight & Integer & - & 武器の重さ \\ \hline
+rank & String & 〇 & 武器レベル（E, D, A等） \\ \hline
 explain & String & - & 武器の特性や特殊効果の記述 \\ \hline
 \end{tabular}
 \end{adjustbox}
 \end{table}
 
-\section{APIエンドポイント設計（共通）}
-本システムは，リソース名（\texttt{/doraemon}, \texttt{/element}, \texttt{/weapon}）に対して以下の統一的なパス構造を適用している．
-
-\begin{table}[h]
-\centering
-\begin{tabular}{|l|l|l|l|}
-\hline
-\textbf{機能} & \textbf{メソッド} & \textbf{パス（例）} & \textbf{レスポンス} \\ \hline
-一覧表示 & GET & \texttt{/resource} & 一覧画面のレンダリング \\ \hline
-詳細表示 & GET & \texttt{/resource/:id} & 詳細画面のレンダリング \\ \hline
-新規登録実行 & POST & \texttt{/resource/create} & 一覧へリダイレクト \\ \hline
-更新実行 & POST & \texttt{/resource/update/:id} & 詳細へリダイレクト \\ \hline
-削除実行 & POST & \texttt{/resource/delete/:id} & 一覧へリダイレクト \\ \hline
-\end{tabular}
-\end{table}
-
 \section{実装上の工夫と安全性}
 \begin{itemize}
-    \item \textbf{一貫性の維持}: CSSファイルを \texttt{/public/style.css} に外部化し，全リソース間でデザインの整合性を確保した．
-    \item \textbf{入力制御}: フォームの数値項目には \texttt{type="number"} を使用し，ブラウザ側でのバリデーション機能を活用した．
-    \item \textbf{削除の安全化}: 削除操作は \texttt{POST} メソッドによる送信と確認ダイアログ（JavaScript）を併用し，意図しないデータ消失を防止した．
+    \item \textbf{一貫性の維持}: CSSファイルを \texttt{/public/style.css} に外部化し，全リソース間でデザインの整合性を確保した．
+    \item \textbf{入力制御}: フォームの数値項目には \texttt{type="number"} を使用し，ブラウザ側でのバリデーション機能を活用した．
+    \item \textbf{削除の安全化}: 削除操作は \texttt{POST} メソッドによる送信と確認ダイアログ（JavaScript）を併用し，意図しないデータ消失を防止した．
 \end{itemize}
-
 
 \newpage
 \section{管理者向け仕様書}
