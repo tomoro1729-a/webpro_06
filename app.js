@@ -4,11 +4,6 @@ const express = require('express');
 const app = express();
 const path = require('path');
 
-// トップ画面（メニュー）の表示
-app.get('/', (req, res) => {
-    res.render('top'); // top.ejs を表示する
-});
-
 
 app.set('view engine', 'ejs');
 
@@ -18,6 +13,10 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use("/public", express.static(path.join(__dirname, 'public')));
 
+// トップ画面（メニュー）の表示
+app.get('/', (req, res) => {
+    res.render('top'); // top.ejs を表示する
+});
 
 let doraemonList = [
     { id: 1, title: 'のび太の恐竜', year: 1980, revenue: '15.6億円', director: '福富博', explain: 'スネ夫のパパのアメリカ土産「恐竜のツメの化石」を見せてもらえなかったのび太は本物の恐竜を見つけると宣言、やむなく、のび太は化石発掘を始め、悪戦苦闘の末、化石らしき物を見つけた。ドラえもんのタイム風呂敷にかぶせて一億年前の姿に戻すと、これが巨大なタマゴ。それから毎日、のび太はふとんの中でそれ抱いて寝た。' },
