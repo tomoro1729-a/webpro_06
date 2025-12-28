@@ -142,9 +142,6 @@ explain & String & - & 武器の特性や特殊効果の記述 \\ \hline
     \item \textbf{削除の安全化}: 削除操作は \texttt{POST} メソッドによる送信と確認ダイアログ（JavaScript）を併用し，意図しないデータ消失を防止した．
 \end{itemize}
 
-% =================================================================
-% 管理者向けマニュアルセクション
-% =================================================================
 
 \newpage
 \section{管理者向け仕様書}
@@ -221,10 +218,6 @@ node app.js
     排他制御を行っていないため，複数の管理者が同一データを同時に編集した場合，最後に保存操作を行った内容で上書きされる仕様である．
 \end{itemize}
 
-% =================================================================
-% 利用者向けマニュアルセクション
-% =================================================================
-
 \newpage
 \section{利用者向け仕様書}
 
@@ -237,11 +230,9 @@ node app.js
 ブラウザでシステムにアクセスすると，最初にメニュー画面が表示される．
 利用したいデータベースの「システムを開く」ボタンをクリックすることで，各管理画面へ移動する．
 
-% 画像挿入エリア（画像ファイルがない場合はコンパイルエラーになるため、画像を配置するかコメントアウトしてください）
 \begin{figure}[h]
     \centering
-    % \includegraphics[width=10cm]{menu.png} 
-    % ※画像を保存したら上の行の % を外してください
+     \includegraphics[width=10cm]{menu.png} 
     \caption{システム選択メニュー画面}
 \end{figure}
 
@@ -257,7 +248,7 @@ node app.js
 
 \begin{figure}[h]
     \centering
-    % サイズを10cmから7cmに変更しました
+
     \includegraphics[width=10cm]{list.png}
     \caption{データ一覧表示画面の例}
 \end{figure}
@@ -268,7 +259,7 @@ node app.js
 
 \begin{figure}[h]
     \centering
-    % サイズを10cmから7cmに変更しました
+
     \includegraphics[width=10cm]{detail.png}
     \caption{詳細情報確認画面}
 \end{figure}
@@ -282,7 +273,7 @@ node app.js
 
 \begin{figure}[h]
     \centering
-    % サイズを10cmから7cmに変更しました
+
     \includegraphics[width=10cm]{form.png}
     \caption{データ入力フォーム}
 \end{figure}
