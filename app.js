@@ -96,11 +96,9 @@ let elementList = [
     { number: 92, symbol: 'U', name: 'ウラン', mass: 238.0, explain: '放射性元素。原子力発電の燃料として利用される。' }
 ];
 
-// =================================================================
-// システム3：FE風花雪月 武器データ（剣・槍・斧・弓・籠手）
-// =================================================================
+
 let weaponList = [
-    // --- 剣 (Sword) ---
+   
     { id: 1, name: '訓練用剣', type: '剣', might: 3, hit: 100, critical: 0, range: '1', weight: 4, rank: 'E', explain: '訓練用の安価な剣。性能は低い。' },
     { id: 2, name: '鉄の剣', type: '剣', might: 5, hit: 90, critical: 0, range: '1', weight: 5, rank: 'E', explain: '標準的な剣。安価で扱いやすい。' },
     { id: 3, name: '鋼の剣', type: '剣', might: 8, hit: 85, critical: 0, range: '1', weight: 10, rank: 'D', explain: '鉄の剣よりも威力は高いが、重く命中が少し低い。' },
@@ -112,7 +110,7 @@ let weaponList = [
     { id: 9, name: 'レイピア', type: '剣', might: 7, hit: 95, critical: 10, range: '1', weight: 5, rank: 'E', explain: '重装・騎馬特効。敵の隙を突きやすく、特定の兵種に強い。' },
     { id: 10, name: '天帝の剣', type: '剣', might: 7, hit: 90, critical: 0, range: '1-2', weight: 9, rank: 'E', explain: '主人公専用。伝説の英雄の遺産。戦技「破天」が使用可能。' },
 
-    // --- 槍 (Lance) ---
+   
     { id: 11, name: '鉄の槍', type: '槍', might: 6, hit: 80, critical: 0, range: '1', weight: 6, rank: 'E', explain: '標準的な槍。剣よりも少し威力が高く命中が低い。' },
     { id: 12, name: '手槍', type: '槍', might: 7, hit: 75, critical: 0, range: '1-2', weight: 6, rank: 'D', explain: '投擲用の槍。近距離と遠距離の両方に対応できる。' },
     { id: 13, name: '鋼の槍', type: '槍', might: 9, hit: 75, critical: 0, range: '1', weight: 11, rank: 'D', explain: '威力は十分だが、重いため追撃を受けやすい。' },
@@ -120,7 +118,6 @@ let weaponList = [
     { id: 15, name: 'ナイトキラー', type: '槍', might: 8, hit: 70, critical: 0, range: '1', weight: 8, rank: 'D', explain: '騎馬特効。馬に乗った敵に対して絶大な威力を発揮する。' },
     { id: 16, name: '破裂の槍', type: '槍', might: 22, hit: 65, critical: 20, range: '1', weight: 9, rank: 'E', explain: '英雄の遺産。禍々しい形状の槍。戦技「裂空」が使用可能。' },
 
-    // --- 斧 (Axe) ---
     { id: 17, name: '鉄の斧', type: '斧', might: 8, hit: 70, critical: 0, range: '1', weight: 7, rank: 'E', explain: '標準的な斧。威力は高いが命中が不安。' },
     { id: 18, name: '手斧', type: '斧', might: 8, hit: 60, critical: 0, range: '1-2', weight: 7, rank: 'D', explain: '投擲用の斧。遠距離攻撃が可能だが命中は低い。' },
     { id: 19, name: '鋼の斧', type: '斧', might: 11, hit: 65, critical: 0, range: '1', weight: 12, rank: 'D', explain: '非常に重いが、一撃の威力は強力。' },
@@ -128,26 +125,25 @@ let weaponList = [
     { id: 21, name: 'ハンマー', type: '斧', might: 10, hit: 60, critical: 0, range: '1', weight: 15, rank: 'D', explain: '重装特効。硬い鎧を叩き割るための巨大な槌。' },
     { id: 22, name: 'アイムール', type: '斧', might: 24, hit: 60, critical: 20, range: '1', weight: 11, rank: 'E', explain: '英雄の遺産。紋章石が埋め込まれた巨大な斧。戦技「狂嵐」が使用可能。' },
 
-    // --- 弓 (Bow) ---
     { id: 23, name: '鉄の弓', type: '弓', might: 6, hit: 85, critical: 0, range: '2', weight: 6, rank: 'E', explain: '標準的な弓。飛行系の敵に特効を持つ。' },
     { id: 24, name: '鋼の弓', type: '弓', might: 9, hit: 80, critical: 0, range: '2', weight: 11, rank: 'D', explain: '威力を重視した弓。重いため速さが下がる。' },
     { id: 25, name: '銀の弓', type: '弓', might: 13, hit: 90, critical: 0, range: '2', weight: 9, rank: 'B', explain: '命中精度と威力を兼ね備えた強力な弓。' },
     { id: 26, name: 'ロングボウ', type: '弓', might: 6, hit: 80, critical: 0, range: '2-3', weight: 13, rank: 'C', explain: '射程が長い弓。遠くの敵を一方的に攻撃できる。' },
     { id: 27, name: 'フェイルノート', type: '弓', might: 18, hit: 75, critical: 20, range: '2-3', weight: 9, rank: 'E', explain: '英雄の遺産。決して外れないと言われる魔弓。戦技「落星」が使用可能。' },
 
-    // --- 籠手 (Gauntlets) ---
+
     { id: 28, name: '鉄の籠手', type: '籠手', might: 1, hit: 85, critical: 0, range: '1', weight: 3, rank: 'E', explain: '格闘用の武器。自分から攻撃すると必ず2回連続攻撃になる。' },
     { id: 29, name: '銀の籠手', type: '籠手', might: 4, hit: 85, critical: 0, range: '1', weight: 5, rank: 'B', explain: '威力が高められた籠手。魔法職には装備できない。' },
     { id: 30, name: 'キラーナックル', type: '籠手', might: 3, hit: 80, critical: 20, range: '1', weight: 7, rank: 'C', explain: '必殺の一撃を狙いやすい籠手。4回攻撃で必殺を連発できることも。' }
 ];
 let nextWeaponId = 31;
 
-// 1. トップページ（一覧画面へ転送）
+
 app.get("/", (req, res) => {
     res.redirect('/doraemon');
 });
 
-// 2. 一覧表示画面
+
 app.get("/doraemon", (req, res) => {
     res.render('doraemon_list', { data: doraemonList });
 });
@@ -157,7 +153,6 @@ app.get("/doraemon/create", (req, res) => {
     res.render('doraemon_create');
 });
 
-// 5. 新規追加の実行処理 (POST)
 app.post("/doraemon/create", (req, res) => {
     const newItem = {
         id: nextId++,
@@ -170,23 +165,23 @@ app.post("/doraemon/create", (req, res) => {
     doraemonList.push(newItem);
     res.redirect('/doraemon');
 });
-// ----------------------------------------------------
 
-// 3. 詳細表示画面
+
+
 app.get("/doraemon/:id", (req, res) => {
     const id = parseInt(req.params.id);
     const target = doraemonList.find(item => item.id === id);
     target ? res.render('doraemon_detail', { item: target }) : res.status(404).send("指定された映画は見つかりません。");
 });
 
-// 6. 編集画面
+
 app.get("/doraemon/edit/:id", (req, res) => {
     const id = parseInt(req.params.id);
     const target = doraemonList.find(item => item.id === id);
     target ? res.render('doraemon_edit', { item: target }) : res.status(404).send("編集対象が見つかりません。");
 });
 
-// 7. 更新実行処理 (POST)
+//更新実行処理 (POST)
 app.post("/doraemon/update/:id", (req, res) => {
     const id = parseInt(req.params.id);
     const index = doraemonList.findIndex(item => item.id === id);
@@ -206,7 +201,7 @@ app.post("/doraemon/update/:id", (req, res) => {
     }
 });
 
-// 8. 削除実行処理 (POST)
+// 削除実行処理 (POST)
 app.post("/doraemon/delete/:id", (req, res) => {
     const id = parseInt(req.params.id);
     doraemonList = doraemonList.filter(item => item.id !== id);
@@ -214,45 +209,45 @@ app.post("/doraemon/delete/:id", (req, res) => {
 });
 
 
-// 一覧表示（変更なし）
+
 app.get("/element", (req, res) => {
     elementList.sort((a, b) => a.number - b.number);
     res.render('element_list', { data: elementList });
 });
 
-// 新規作成画面（変更なし）
+
 app.get("/element/create", (req, res) => {
     res.render('element_create');
 });
 
-// ★新規作成実行（massを追加）
+
 app.post("/element/create", (req, res) => {
     const newItem = {
         number: parseInt(req.body.number),
         symbol: req.body.symbol,
         name: req.body.name,
-        mass: parseFloat(req.body.mass), // 小数も扱えるようにparseFloat
+        mass: parseFloat(req.body.mass), 
         explain: req.body.explain
     };
     elementList.push(newItem);
     res.redirect('/element');
 });
 
-// 詳細表示（変更なし）
+
 app.get("/element/:number", (req, res) => {
     const number = parseInt(req.params.number);
     const target = elementList.find(item => item.number === number);
     target ? res.render('element_detail', { item: target }) : res.status(404).send("指定された元素は見つかりません。");
 });
 
-// 編集画面（変更なし）
+
 app.get("/element/edit/:number", (req, res) => {
     const number = parseInt(req.params.number);
     const target = elementList.find(item => item.number === number);
     target ? res.render('element_edit', { item: target }) : res.status(404).send("編集対象が見つかりません。");
 });
 
-// ★更新実行（massを追加）
+
 app.post("/element/update/:number", (req, res) => {
     const number = parseInt(req.params.number);
     const index = elementList.findIndex(item => item.number === number);
@@ -262,7 +257,7 @@ app.post("/element/update/:number", (req, res) => {
             number: number,
             symbol: req.body.symbol,
             name: req.body.name,
-            mass: parseFloat(req.body.mass), // ここを追加
+            mass: parseFloat(req.body.mass), 
             explain: req.body.explain
         };
         res.redirect(`/element/${number}`);
@@ -271,16 +266,13 @@ app.post("/element/update/:number", (req, res) => {
     }
 });
 
-// 削除実行（変更なし）
+// 削除実行
 app.post("/element/delete/:number", (req, res) => {
     const number = parseInt(req.params.number);
     elementList = elementList.filter(item => item.number !== number);
     res.redirect('/element');
 });
 
-// -----------------------------------------------------------------
-// 3. 武器システム
-// -----------------------------------------------------------------
 
 // 一覧表示
 app.get("/weapon", (req, res) => {
@@ -300,9 +292,9 @@ app.post("/weapon/create", (req, res) => {
         type: req.body.type,
         might: parseInt(req.body.might),
         hit: parseInt(req.body.hit),
-        critical: parseInt(req.body.critical), // 追加
-        range: req.body.range,                 // 追加
-        weight: parseInt(req.body.weight),     // 追加
+        critical: parseInt(req.body.critical), 
+        range: req.body.range,                 
+        weight: parseInt(req.body.weight),     
         rank: req.body.rank,
         explain: req.body.explain
     };
@@ -336,9 +328,9 @@ app.post("/weapon/update/:id", (req, res) => {
             type: req.body.type,
             might: parseInt(req.body.might),
             hit: parseInt(req.body.hit),
-            critical: parseInt(req.body.critical), // 追加
-            range: req.body.range,                 // 追加
-            weight: parseInt(req.body.weight),     // 追加
+            critical: parseInt(req.body.critical), 
+            range: req.body.range,                
+            weight: parseInt(req.body.weight),     
             rank: req.body.rank,
             explain: req.body.explain
         };
