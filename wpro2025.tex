@@ -61,13 +61,27 @@
     \item \textbf{編集完了後}: 修正された内容を再確認させるため，「詳細ページ」へリダイレクトする．
 \end{itemize}
 
-% ▼▼▼ フローチャート画像の挿入 ▼▼▼
+
 \begin{figure}[h]
     \centering
     \includegraphics[width=12cm]{flowchart.png}
     \caption{システムの共通処理フローチャート}
 \end{figure}
-% ▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲
+
+\subsection{システム共通：メインメニュー（トップ画面）}
+本アプリケーションの入口（エントリポイント）となるナビゲーション画面である．
+
+\subsubsection{基本仕様}
+\begin{itemize}
+    \item \textbf{URLパス}: \texttt{/} （ルート）
+    \item \textbf{HTTPメソッド}: GET
+    \item \textbf{機能}: ユーザーが目的のデータベースを選択できるよう，以下の3システムへのリンクを提供する．
+    \begin{itemize}
+        \item ドラえもん映画一覧システム (\texttt{/doraemon})
+        \item 周期表元素一覧システム (\texttt{/element})
+        \item FE風花雪月 武器一覧システム (\texttt{/weapon})
+    \end{itemize}
+\end{itemize}
 \newpage
 
 \section{各サブシステムの詳細設計}
