@@ -1,0 +1,298 @@
+\documentclass[a4paper, 10pt]{jsarticle}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{geometry}
+\geometry{left=25mm, right=25mm, top=25mm, bottom=25mm}
+\usepackage{hyperref}
+\usepackage[dvipdfmx]{graphicx}
+\usepackage[dvipdfmx]{xcolor}
+\usepackage[dvipdfmx]{hyperref}
+\usepackage{listings}
+\usepackage{adjustbox}
+
+
+\title{Webプログラミング仕様書}
+\author{25G1137 吉田朝朗}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\begin{center}
+    \vspace{-10pt} 
+    \textbf{【ソースコード・リポジトリ】}\par
+    \vspace{5pt}
+    \url{https://github.com/tomoro1729-a/webpro_06.git}
+    \vspace{20pt} 
+\end{center}
+
+
+
+\section{開発者向け仕様書}
+本システムは，Node.jsおよびExpressフレームワークを用いて構築された，3つの異なるテーマ（映画・化学元素・ゲーム武器）を扱うWebデータベースアプリケーションである．各システムは独立したリソースとして管理されつつも，統一されたRESTfulな設計指針に基づいて実装されている．
+
+\subsection{技術スタックと構成}
+\begin{itemize}
+    \item \textbf{サーバーサイド}: Node.js (Express)
+    \item \textbf{テンプレートエンジン}: EJS (HTML動的生成)
+    \item \textbf{フロントエンド}: 標準HTML5, CSS3（静的ファイルとして外部定義）
+    \item \textbf{データ管理}: サーバー内メモリによるオブジェクト配列管理
+\end{itemize}
+
+\section{共通設計仕様}
+
+\subsection{ページ構造の決定}
+各サブシステムは，ユーザーの操作性を考慮し，以下の4種類のページ構造を共通で持つ．
+\begin{enumerate}
+    \item \textbf{一覧ページ (Index)}: 登録データの全件をテーブル形式で表示する．
+    \item \textbf{詳細ページ (Show)}: 特定リソースの全プロパティを閲覧する．
+    \item \textbf{新規登録ページ (New)}: 新規データ入力を受け付けるフォーム．
+    \item \textbf{編集ページ (Edit)}: 既存データの修正を受け付けるフォーム．
+\end{enumerate}
+
+\subsection{ページ遷移と処理の流れ}
+本システムはステートレスなHTTP通信を行うが，操作後のユーザー体験（UX）を最適化するため，以下のリダイレクト戦略を採用している．
+
+
+
+\begin{itemize}
+    \item \textbf{新規作成/削除後}: データの増減を即座に確認させるため，「一覧ページ」へリダイレクトする．
+    \item \textbf{編集完了後}: 修正された内容を再確認させるため，「詳細ページ」へリダイレクトする．
+\end{itemize}
+
+\section{各サブシステムの詳細設計}
+
+\subsection{システム1：ドラえもん映画一覧システム}
+歴代作品の興行データ等を管理する．
+
+\subsubsection{データ構造}
+\begin{table}[h]
+\centering
+\begin{adjustbox}{width=\textwidth}
+\begin{tabular}{|l|l|l|p{7cm}|}
+\hline
+\textbf{プロパティ} & \textbf{型} & \textbf{必須} & \textbf{内容} \\ \hline
+id & Integer & 〇 & システム一意識別子 \\ \hline
+title & String & 〇 & 映画の題名 \\ \hline
+year & Integer & 〇 & 公開された西暦 \\ \hline
+revenue & String & - & 興行収入記録 \\ \hline
+explain & String & - & あらすじ・概要説明 \\ \hline
+\end{tabular}
+\end{adjustbox}
+\end{table}
+
+\subsection{システム2：周期表元素一覧システム}
+原子番号を一意識別子（ID）として利用し，科学データを管理する．
+
+\subsubsection{データ構造}
+\begin{table}[h]
+\centering
+\begin{adjustbox}{width=\textwidth}
+\begin{tabular}{|l|l|l|p{7cm}|}
+\hline
+\textbf{プロパティ} & \textbf{型} & \textbf{必須} & \textbf{内容} \\ \hline
+number & Integer & 〇 & 原子番号（ID兼用） \\ \hline
+symbol & String & 〇 & 元素記号（H, He等） \\ \hline
+name & String & 〇 & 日本語名 \\ \hline
+explain & String & - & 性質や発見の経緯等の記述 \\ \hline
+\end{tabular}
+\end{adjustbox}
+\end{table}
+
+\subsection{システム3：FE風花雪月 武器一覧システム}
+ゲームバランスに関わる複数の数値パラメータを管理する．
+
+\subsubsection{データ構造}
+\begin{table}[h]
+\centering
+\begin{adjustbox}{width=\textwidth}
+\begin{tabular}{|l|l|l|p{7cm}|}
+\hline
+\textbf{プロパティ} & \textbf{型} & \textbf{必須} & \textbf{内容} \\ \hline
+id & Integer & 〇 & 武器一意識別子 \\ \hline
+name & String & 〇 & 武器の名称 \\ \hline
+type & String & 〇 & 分類（剣，槍，斧，弓等） \\ \hline
+might / hit & Integer & - & 威力および命中率 \\ \hline
+explain & String & - & 武器の特性や特殊効果の記述 \\ \hline
+\end{tabular}
+\end{adjustbox}
+\end{table}
+
+\section{APIエンドポイント設計（共通）}
+本システムは，リソース名（\texttt{/doraemon}, \texttt{/element}, \texttt{/weapon}）に対して以下の統一的なパス構造を適用している．
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|l|l|l|l|}
+\hline
+\textbf{機能} & \textbf{メソッド} & \textbf{パス（例）} & \textbf{レスポンス} \\ \hline
+一覧表示 & GET & \texttt{/resource} & 一覧画面のレンダリング \\ \hline
+詳細表示 & GET & \texttt{/resource/:id} & 詳細画面のレンダリング \\ \hline
+新規登録実行 & POST & \texttt{/resource/create} & 一覧へリダイレクト \\ \hline
+更新実行 & POST & \texttt{/resource/update/:id} & 詳細へリダイレクト \\ \hline
+削除実行 & POST & \texttt{/resource/delete/:id} & 一覧へリダイレクト \\ \hline
+\end{tabular}
+\end{table}
+
+\section{実装上の工夫と安全性}
+\begin{itemize}
+    \item \textbf{一貫性の維持}: CSSファイルを \texttt{/public/style.css} に外部化し，全リソース間でデザインの整合性を確保した．
+    \item \textbf{入力制御}: フォームの数値項目には \texttt{type="number"} を使用し，ブラウザ側でのバリデーション機能を活用した．
+    \item \textbf{削除の安全化}: 削除操作は \texttt{POST} メソッドによる送信と確認ダイアログ（JavaScript）を併用し，意図しないデータ消失を防止した．
+\end{itemize}
+
+% =================================================================
+% 管理者向けマニュアルセクション
+% =================================================================
+
+\newpage
+\section{管理者向け仕様書}
+
+本章では，本システムの導入（インストール）から，日常的な起動・停止手順，およびトラブルシューティングについて記述する．
+
+\subsection{ソースコードの入手と環境構築}
+
+\subsubsection{動作要件}
+本システムを稼働させるためには，以下のソフトウェア環境が必要である．
+\begin{itemize}
+    \item \textbf{OS}: Windows, macOS, Linux いずれか
+    \item \textbf{Runtime}: Node.js (LTS推奨)
+    \item \textbf{Manager}: npm (Node.jsに標準同梱)
+\end{itemize}
+
+\subsubsection{インストール手順}
+以下の手順に従い，GitHubリポジトリからソースコードを取得し，依存ライブラリをインストールする．
+
+\begin{enumerate}
+    \item \textbf{リポジトリのクローン}:
+    ターミナル（コマンドプロンプト）を開き，以下のコマンドを実行してソースコードをダウンロードする．
+\begin{lstlisting}[language=bash, caption=Gitクローンコマンド]
+git clone https://github.com/tomoro1729-a/webpro_06.git
+cd webpro_06
+\end{lstlisting}
+
+    \item \textbf{依存パッケージのインストール}:
+    プロジェクトフォルダ内で以下のコマンドを実行し，\texttt{package.json} に記載されたライブラリ（Express, EJS等）を一括導入する．
+\begin{lstlisting}[language=bash, caption=パッケージインストールコマンド]
+npm install
+\end{lstlisting}
+\end{enumerate}
+
+\subsection{システムの起動と終了}
+
+\subsubsection{起動方法}
+環境構築完了後，以下のコマンドでWebサーバーを起動する．
+\begin{lstlisting}[language=bash]
+node app.js
+\end{lstlisting}
+
+起動に成功すると，コンソールに \texttt{Server is running on http://localhost:8080} と表示される．
+ブラウザで上記URLへアクセスすることでシステムを利用開始できる．
+
+\subsubsection{終了方法}
+サーバーを停止する場合は，ターミナル上でキーボードの \textbf{Ctrl + C} を入力する．これによりプロセスが安全に終了する．
+
+\subsection{トラブルシューティング}
+起動時または操作時に問題が発生した場合の対処法を以下に示す．
+
+\begin{table}[h]
+\centering
+\caption{よくあるエラーと対処法}
+\begin{adjustbox}{width=\textwidth}
+\begin{tabular}{|l|p{6cm}|p{7cm}|}
+\hline
+\textbf{現象・エラーメッセージ} & \textbf{推定される原因} & \textbf{対処法} \\ \hline
+\texttt{command not found: node} & Node.jsがインストールされていない，またはパスが通っていない． & 公式サイトよりNode.jsのインストーラをダウンロードし，セットアップを行う． \\ \hline
+\texttt{Error: Cannot find module...} & 依存ライブラリ（\texttt{node\_modules}）が不足している． & \texttt{npm install} コマンドを再度実行し，完了を待つ． \\ \hline
+\texttt{EADDRINUSE :::8080} & ポート8080番が既に使用されている． & 既に起動している別の\texttt{node}プロセスを終了するか，PCを再起動する． \\ \hline
+\end{tabular}
+\end{adjustbox}
+\end{table}
+
+\subsection{システムの制約事項と既知の課題}
+本システムは学習用プロトタイプであり，運用上以下の制約が存在する．
+
+\begin{itemize}
+    \item \textbf{データの揮発性}:
+    データベースを使用せず，サーバーのメモリ上（変数）でデータを管理している．そのため，\textbf{サーバーを再起動・停止すると，追加・編集したデータは初期状態にリセットされる}．恒久的な運用を行う場合は，別途データベース（SQLite, MySQL等）の実装が必要である．
+    
+    \item \textbf{同時編集の競合}:
+    排他制御を行っていないため，複数の管理者が同一データを同時に編集した場合，最後に保存操作を行った内容で上書きされる仕様である．
+\end{itemize}
+
+% =================================================================
+% 利用者向けマニュアルセクション
+% =================================================================
+
+\newpage
+\section{利用者向け仕様書}
+
+本章では，一般利用者を対象に，本データベースシステムの基本的な操作手順について解説する．
+本システムは「ドラえもん映画」「元素周期表」「武器データ」の3つのサブシステムから構成されているが，すべての画面で共通の操作方法を採用している．ここでは例として，システムごとの共通手順を示す．
+
+\subsection{システムへのアクセス}
+
+\subsubsection{トップメニュー}
+ブラウザでシステムにアクセスすると，最初にメニュー画面が表示される．
+利用したいデータベースの「システムを開く」ボタンをクリックすることで，各管理画面へ移動する．
+
+% 画像挿入エリア（画像ファイルがない場合はコンパイルエラーになるため、画像を配置するかコメントアウトしてください）
+\begin{figure}[h]
+    \centering
+    % \includegraphics[width=10cm]{menu.png} 
+    % ※画像を保存したら上の行の % を外してください
+    \caption{システム選択メニュー画面}
+\end{figure}
+
+
+\subsection{データの閲覧}
+
+\subsubsection{一覧画面（リスト表示）}
+各システムのトップ画面では，登録されている全データが表形式で一覧表示される．
+\begin{itemize}
+    \item \textbf{詳細リンク}: データのIDや名前をクリックすると，そのデータの詳細情報画面へ移動する．
+    \item \textbf{削除ボタン}: データの右側にある削除ボタンを押すと，その行のデータが削除される（詳細は後述）．
+\end{itemize}
+
+\begin{figure}[h]
+    \centering
+    % サイズを10cmから7cmに変更しました
+    \includegraphics[width=10cm]{list.png}
+    \caption{データ一覧表示画面の例}
+\end{figure}
+
+\subsubsection{詳細画面}
+一覧画面から選択したデータの全項目（説明文などの長いテキスト含む）を確認できる．
+この画面には「編集」ボタンがあり，登録内容の修正を行うことができる．
+
+\begin{figure}[h]
+    \centering
+    % サイズを10cmから7cmに変更しました
+    \includegraphics[width=10cm]{detail.png}
+    \caption{詳細情報確認画面}
+\end{figure}
+
+
+\subsection{データの管理（追加・編集・削除）}
+
+\subsubsection{新規データの追加}
+一覧画面にある「新規登録（Create New）」リンクをクリックすると，登録フォームが表示される．
+必要な項目（名前，数値など）を入力し，「保存」ボタンを押すことで新しいデータがデータベースに追加される．
+
+\begin{figure}[h]
+    \centering
+    % サイズを10cmから7cmに変更しました
+    \includegraphics[width=10cm]{form.png}
+    \caption{データ入力フォーム}
+\end{figure}
+
+\subsubsection{既存データの編集}
+詳細画面にある「編集（Edit）」ボタンをクリックすると，現在のデータが入力された状態でフォームが開く．
+内容を修正して「更新」ボタンを押すと，変更内容が反映される．
+
+\subsubsection{データの削除}
+一覧画面の各行にある「削除（Delete）」ボタンをクリックする．
+\textbf{注意}: 削除操作を行うとデータは即座に消去され，元に戻すことはできないため，慎重に操作を行うこと．
+
+\end{document}

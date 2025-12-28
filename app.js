@@ -4,6 +4,11 @@ const express = require('express');
 const app = express();
 const path = require('path');
 
+// トップ画面（メニュー）の表示
+app.get('/', (req, res) => {
+    res.render('top'); // top.ejs を表示する
+});
+
 
 app.set('view engine', 'ejs');
 
