@@ -144,6 +144,20 @@ explain & String & - & 武器の特性や特殊効果の記述 \\ \hline
 \end{adjustbox}
 \end{table}
 
+\section{UI/デザイン設計方針}
+本システムでは，3つのサブシステム間で操作感と視覚的な統一性を保つため，以下のデザイン方針を採用している．
+
+\subsection{スタイルシートの共通化}
+全ページ共通のスタイル定義を \texttt{/public/style.css} に集約し，これを各EJSテンプレートから読み込む構成とした．これにより，将来的なデザイン変更時に全ページへ即座に反映できる保守性を確保している．
+
+\subsection{配色のルール}
+視認性を高めるため，以下の配色ルールを統一して適用している．
+\begin{itemize}
+    \item \textbf{ベースカラー}: 白 (\#FFFFFF) - 背景色として使用
+    \item \textbf{メインカラー}: 黒 (\#333333) - 文字色として使用
+    \item \textbf{アクセントカラー}: 青系 - リンクおよびボタンに使用し，クリック可能な要素であることを明示
+\end{itemize}
+
 \section{実装上の工夫と安全性}
 \begin{itemize}
     \item \textbf{一貫性の維持}: CSSファイルを \texttt{/public/style.css} に外部化し，全リソース間でデザインの整合性を確保した．
